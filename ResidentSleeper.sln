@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResidentSleeper", "ResidentSleeper\ResidentSleeper.csproj", "{74BD8EBB-3534-4D3D-A4E5-DEA4B0E9B93E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResidentSleeper", "ResidentSleeper\ResidentSleeper.csproj", "{7824B03E-FF78-4650-AFF9-35326467C8C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{74BD8EBB-3534-4D3D-A4E5-DEA4B0E9B93E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{74BD8EBB-3534-4D3D-A4E5-DEA4B0E9B93E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{74BD8EBB-3534-4D3D-A4E5-DEA4B0E9B93E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{74BD8EBB-3534-4D3D-A4E5-DEA4B0E9B93E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7824B03E-FF78-4650-AFF9-35326467C8C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7824B03E-FF78-4650-AFF9-35326467C8C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7824B03E-FF78-4650-AFF9-35326467C8C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7824B03E-FF78-4650-AFF9-35326467C8C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {F47EB394-8ECF-451D-9261-2D373DE184CB}
+		SolutionGuid = {C1B36A21-7B4A-4C59-B911-E20A2061302B}
 	EndGlobalSection
 EndGlobal
