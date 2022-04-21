@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ResidentSleeper.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace ResidentSleeper
 {
@@ -28,7 +30,11 @@ namespace ResidentSleeper
             {
                 configuration.RootPath = "ClientApp/build";
             });
-        }
+
+            services.AddDbContext<MainContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+
+    }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
