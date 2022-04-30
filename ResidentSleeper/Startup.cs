@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ResidentSleeper.Contexts;
 using Microsoft.EntityFrameworkCore;
+using ResidentSleeper.Service.FlowerService;
 
 namespace ResidentSleeper
 {
@@ -33,6 +34,8 @@ namespace ResidentSleeper
 
             services.AddDbContext<MainContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+
+            services.AddScoped<IFlowerService, FlowerService>();
 
     }
 
