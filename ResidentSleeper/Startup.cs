@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ResidentSleeper.Contexts;
 using Microsoft.EntityFrameworkCore;
+using ResidentSleeper.Services;
+using ResidentSleeper.Interfaces;
 
 namespace ResidentSleeper
 {
@@ -33,8 +35,9 @@ namespace ResidentSleeper
 
             services.AddDbContext<MainContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+            services.AddScoped<IOrderService, OrderService>();
 
-    }
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

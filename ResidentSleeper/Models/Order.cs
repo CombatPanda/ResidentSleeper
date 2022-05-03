@@ -7,10 +7,9 @@ namespace ResidentSleeper.Models
 {
     public class Order
     {
-        public int ID { get; set; }
-        public string userID { get; set; }
-        public int orderDetailID { get; set; }
-        public int status { get; set; }
-        public double cost { get; set; }
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public int Status { get; set; }
+        public double Cost { get; set; }
     }
 }

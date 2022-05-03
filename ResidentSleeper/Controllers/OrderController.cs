@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ResidentSleeper.Contexts;
+using ResidentSleeper.Interfaces;
 using ResidentSleeper.Models;
 using System;
 using System.Collections.Generic;
@@ -12,73 +13,67 @@ namespace ResidentSleeper.Controllers
     [Route("[controller]")]
     public class OrderController : ControllerBase
     {
-        private readonly MainContext _context;
+        private readonly IOrderService _service;
 
-        public OrderController(MainContext context)
+        public OrderController(IOrderService service)
         {
-            _context = context;
+            _service = service;
         }
 
+        // GET: /order
         [HttpGet]
-        public ActionResult<List<OrderWithDetails>> GetAllOrders()
+        public async Task<List<OrderWithDetails>> GetAll()
         {
-            var or = new Order();
-            or.ID = 1;
-            or.userID = "1";
-
-            var orDet = new OrderDetail();
-            orDet.ID = 2;
-
-
-            List<OrderWithDetails> fullOrders = new List<OrderWithDetails>()
-            {
-                new OrderWithDetails(){
-                    Order = or,
-                    Details = new List<OrderDetail>(){orDet, orDet}
-                },
-                new OrderWithDetails(){
-                    Order = or,
-                    Details = new List<OrderDetail>(){orDet}
-                },
-            };
-            return fullOrders;
+            return await _service.GetAll();
         }
 
-
-        [HttpGet("{id}")]
-        public ActionResult<OrderWithDetails> Get(string id)
+        // GET: /order/userid/1
+        [HttpGet("userid/{userId}")]
+        public async Task<OrderWithDetails> GetByUserId(int id)
         {
-            var or = new Order();
-            or.ID = 1;
-            or.userID = "1";
-
-            var orDet = new OrderDetail();
-            orDet.ID = 2;
-
-            var order = new OrderWithDetails()
-            {
-                Order = or,
-                Details = new List<OrderDetail>() { orDet, orDet }
-            };
-            return order;
+            return await _service.GetById(id);
         }
 
+        // GET: /order/id/1
+        [HttpGet("id/{id}")]
+        public async Task<OrderWithDetails> GetById(int id)
+        {
+            return await _service.GetById(id);
+        }
 
+        // POST: /order
         [HttpPost]
-        public ActionResult<OrderWithDetails> AddOrder([FromBody] OrderWithDetails obj)
+        public async Task Create(OrderWithDetails orderWithDetails)
         {
-            return obj;
+            await _service.Create(orderWithDetails);
         }
 
-
-        /*[HttpPut("{id}")]
-        public IActionResult Put(string id, [FromBody] Customer obj)
+        // PUT: /order/1
+        [HttpPut("{id}")]
+        public async Task Update(int id, OrderWithDetails orderWithDetails)
         {
+            await _service.Update(id, orderWithDetails);
         }
 
+        // DELETE: /order/1
         [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        public async Task Delete(int id)
         {
-        }*/
+            await _service.Delete(id);
+        }
+        // DELETE: /order/test
+        [HttpGet("test")]
+        public OrderWithDetails test()
+        {
+            var order = new Order();
+            var details = new List<OrderDetail>();
+            details.Add(new OrderDetail());
+
+            return new OrderWithDetails()
+            {
+                Order = order,
+                Details = details
+            };
+        }
     }
 }
