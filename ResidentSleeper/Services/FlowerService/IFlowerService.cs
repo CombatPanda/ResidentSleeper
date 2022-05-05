@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ResidentSleeper.Service.FlowerService
+namespace ResidentSleeper.Services.FlowerService
 {
     public interface IFlowerService
     {

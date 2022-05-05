@@ -1,13 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ResidentSleeper.Contexts;
-using ResidentSleeper.Interfaces;
 using ResidentSleeper.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ResidentSleeper.Services
+namespace ResidentSleeper.Services.OrderService
 {
     public class OrderService : IOrderService
     {

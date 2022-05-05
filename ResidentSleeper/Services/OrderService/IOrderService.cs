@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ResidentSleeper.Interfaces
+namespace ResidentSleeper.Services.OrderService
 {
     public interface IOrderService
     {

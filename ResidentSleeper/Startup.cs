@@ -7,8 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ResidentSleeper.Contexts;
 using Microsoft.EntityFrameworkCore;
-using ResidentSleeper.Services;
-using ResidentSleeper.Interfaces;
+using ResidentSleeper.Services.FlowerService;
+using ResidentSleeper.Services.OrderService;
 
 namespace ResidentSleeper
 {
