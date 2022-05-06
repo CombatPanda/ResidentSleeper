@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ResidentSleeper.Contexts;
 using ResidentSleeper.Models;
 using ResidentSleeper.Service.FlowerService;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using static ResidentSleeper.Constants.Constants;
 
 namespace ResidentSleeper.Controllers
 {
@@ -12,58 +13,93 @@ namespace ResidentSleeper.Controllers
     {
         private readonly IFlowerService _service;
 
-        public FlowerController(IFlowerService service)
+        public FlowerController(IFlowerService service, MainContext context)
         {
             _service = service;
         }
 
         // GET: api/Flower
         [HttpGet]
-        public async Task<List<Flower>> GetAll() 
+        public async Task<IActionResult> GetAll() 
         {
-            return await _service.GetAll(); 
+            var flowers = await Task.Run(() => _service.GetAll());
+            if (flowers == null)
+                return NoContent();
+            return Ok(flowers);
         }
 
         // GET: api/Flower/id/10
         [HttpGet("id/{id}")]
-        public async Task<Flower> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            return await _service.GetById(id);
+            if (id > 1)
+                return BadRequest();
+            var flower = await Task.Run(() => _service.GetById(id));
+            if (flower == null)
+                return NotFound();
+            return Ok(flower);
         }
 
         // GET: api/Flower/type/5
-        [HttpGet("type/{typeId}")]
-        public async Task<List<Flower>> GetByType(int typeId)
+        [HttpGet("type/{type}")]
+        public async Task<IActionResult> GetByType(int type)
         {
-            return await _service.GetByType(typeId);
+            var flowerType = (FlowerType)type;
+            var flowers = await Task.Run(() => _service.GetByType(type));
+            if (flowers == null)
+                return NoContent();
+            return Ok(flowers);
         }
 
         // GET: api/Flower/name/tulpe
         [HttpGet("name/{typeId}")]
-        public async Task<List<Flower>> GetByName(string name)
+        public async Task<IActionResult> GetByName(string name)
         {
-            return await _service.GetByName(name);
+            var flowers = await Task.Run(() => _service.GetByName(name));
+            if (flowers == null)
+                return NoContent();
+            return Ok(flowers);
         }
 
         // POST: api/Flower
         [HttpPost]
-        public async Task Add (Flower flower)
+        public async Task<IActionResult> Add (Flower flower)
         {
-            await _service.Add(flower);
+            if (await Task.Run(() => _service.Add(flower)) != 1)
+                return Problem();
+            return CreatedAtAction(nameof(Add), new { id = flower.ID }, flower);
         }
 
         // PUT: api/Flower/10
         [HttpPut("{id}")]
-        public async Task Edit(int id, Flower flower)
+        public async Task<IActionResult> Edit(int id, Flower flower)
         {
-            await _service.Edit(id, flower);
+            if (flower == null)
+                return NotFound();
+
+            var oldFlower = _service.GetById(id);
+            if (oldFlower == null)
+                return NotFound();
+
+            if (await Task.Run(() => _service.Edit(oldFlower, flower)) != 1)
+                return Problem();
+
+            return Ok();
         }
 
         // DELETE: api/Flower/10
         [HttpDelete("{id}")]
-        public async Task Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            await _service.Delete(id);
+            var flower = _service.GetById(id);
+            if (flower == null)
+                return NotFound();
+
+            int rowsAffected = await Task.Run(() => _service.Delete(flower));
+            if (rowsAffected != 1)
+                return Problem();
+
+            return Ok();
         }
     }
 }
