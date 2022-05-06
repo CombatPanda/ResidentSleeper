@@ -13,7 +13,7 @@ namespace ResidentSleeper.Controllers
     {
         private readonly IFlowerService _service;
 
-        public FlowerController(IFlowerService service, MainContext context)
+        public FlowerController(IFlowerService service)
         {
             _service = service;
         }
