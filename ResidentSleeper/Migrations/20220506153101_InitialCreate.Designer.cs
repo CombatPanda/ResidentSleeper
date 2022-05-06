@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResidentSleeper.Contexts;
 
 namespace ResidentSleeper.Migrations
 {
     [DbContext(typeof(MainContext))]
-    partial class MainContextModelSnapshot : ModelSnapshot
+    [Migration("20220506153101_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +49,7 @@ namespace ResidentSleeper.Migrations
 
             modelBuilder.Entity("ResidentSleeper.Models.Order", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -58,31 +60,31 @@ namespace ResidentSleeper.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("ResidentSleeper.Models.OrderDetail", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("flowerID")
+                    b.Property<int>("flowerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("orderID")
+                    b.Property<int>("orderId")
                         .HasColumnType("int");
 
                     b.Property<int>("quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("OrderDetails");
                 });

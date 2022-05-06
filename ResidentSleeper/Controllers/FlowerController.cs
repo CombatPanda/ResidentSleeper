@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ResidentSleeper.Models;
-using ResidentSleeper.Service.FlowerService;
+using ResidentSleeper.Services.FlowerService;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

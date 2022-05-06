@@ -35,10 +35,10 @@ namespace ResidentSleeper.Services.OrderService
         {
             try
             {
-                var order = _context.Orders.FirstOrDefault(x => x.Id == id);
+                var order = _context.Orders.FirstOrDefault(x => x.ID == id);
                 if (order == null) return;
 
-                var details = await _context.OrderDetails.Where(x => x.orderId == order.Id).ToListAsync();
+                var details = await _context.OrderDetails.Where(x => x.orderID == order.ID).ToListAsync();
                 _context.OrderDetails.RemoveRange(details);
                 _context.Orders.Remove(order);
 
@@ -61,7 +61,7 @@ namespace ResidentSleeper.Services.OrderService
                 orders.ForEach(o => ordersWithDetailsList.Add(new OrderWithDetails()
                 {
                     Order = o,
-                    Details = details.Where(d => d.orderId == o.Id).ToList()
+                    Details = details.Where(d => d.orderID == o.ID).ToList()
                 }));
             }
             catch(Exception)
@@ -73,10 +73,10 @@ namespace ResidentSleeper.Services.OrderService
 
         public async Task<OrderWithDetails> GetById(int id)
         {
-            var order = _context.Orders.FirstOrDefault(x => x.Id == id);
+            var order = _context.Orders.FirstOrDefault(x => x.ID == id);
             if (order == null) return new OrderWithDetails();
 
-            var details = await _context.OrderDetails.Where(x => x.orderId == order.Id).ToListAsync();
+            var details = await _context.OrderDetails.Where(x => x.orderID == order.ID).ToListAsync();
 
 
             return new OrderWithDetails()
@@ -91,13 +91,13 @@ namespace ResidentSleeper.Services.OrderService
             var ordersWithDetailsList = new List<OrderWithDetails>();
             try
             {
-                var orders = await _context.Orders.Where(o => o.UserId == id).ToListAsync();
+                var orders = await _context.Orders.Where(o => o.UserID == id).ToListAsync();
                 var details = await _context.OrderDetails.ToListAsync();
 
                 orders.ForEach(o => ordersWithDetailsList.Add(new OrderWithDetails()
                 {
                     Order = o,
-                    Details = details.Where(d => d.orderId == o.Id).ToList()
+                    Details = details.Where(d => d.orderID == o.ID).ToList()
                 }));
             }
             catch (Exception)
@@ -114,12 +114,12 @@ namespace ResidentSleeper.Services.OrderService
                 var order = orderWithDetails.Order;
                 var details = orderWithDetails.Details;
 
-                var oldOrder = _context.Orders.FirstOrDefault(o => o.Id == order.Id);
+                var oldOrder = _context.Orders.FirstOrDefault(o => o.ID == order.ID);
                 if (oldOrder == null) return;
 
-                var oldDetailsList = await _context.OrderDetails.Where(d => d.orderId == order.Id).ToListAsync();
-                oldOrder.Id = order.Id;
-                oldOrder.UserId = order.UserId;
+                var oldDetailsList = await _context.OrderDetails.Where(d => d.orderID == order.ID).ToListAsync();
+                oldOrder.ID = order.ID;
+                oldOrder.UserID = order.UserID;
                 oldOrder.Status = order.Status;
                 oldOrder.Cost = order.Cost;
 

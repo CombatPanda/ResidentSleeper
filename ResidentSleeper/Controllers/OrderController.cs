@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ResidentSleeper.Contexts;
-using ResidentSleeper.Interfaces;
 using ResidentSleeper.Models;
+using ResidentSleeper.Services.OrderService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,6 +67,7 @@ namespace ResidentSleeper.Controllers
         {
             var order = new Order();
             var details = new List<OrderDetail>();
+            details.Add(new OrderDetail());
             details.Add(new OrderDetail());
 
             return new OrderWithDetails()
