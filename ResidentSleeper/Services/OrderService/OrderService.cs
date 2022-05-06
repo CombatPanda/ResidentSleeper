@@ -22,6 +22,13 @@ namespace ResidentSleeper.Services.OrderService
             try
             {
                 _context.Orders.Add(order.Order);
+                
+                await _context.SaveChangesAsync();
+
+                foreach (var o in order.Details)
+                {
+                    o.orderID = order.Order.ID;
+                }
                 _context.OrderDetails.AddRange(order.Details);
                 await _context.SaveChangesAsync();
             }
@@ -107,7 +114,7 @@ namespace ResidentSleeper.Services.OrderService
             return ordersWithDetailsList;
         }
 
-        public async Task Update(int id, OrderWithDetails orderWithDetails)
+        /*public async Task Update(int id, OrderWithDetails orderWithDetails)
         {
             try
             {
@@ -136,6 +143,6 @@ namespace ResidentSleeper.Services.OrderService
             {
                 //error
             }
-        }
+        }*/
     }
 }

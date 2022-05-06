@@ -29,9 +29,9 @@ namespace ResidentSleeper.Controllers
 
         // GET: /order/userid/1
         [HttpGet("userid/{userId}")]
-        public async Task<OrderWithDetails> GetByUserId(int id)
+        public async Task<List<OrderWithDetails>> GetByUserId(int userId)
         {
-            return await _service.GetById(id);
+            return await _service.GetByUserId(userId);
         }
 
         // GET: /order/id/1
@@ -48,12 +48,12 @@ namespace ResidentSleeper.Controllers
             await _service.Create(orderWithDetails);
         }
 
-        // PUT: /order/1
+       /* // PUT: /order/1
         [HttpPut("{id}")]
         public async Task Update(int id, OrderWithDetails orderWithDetails)
         {
             await _service.Update(id, orderWithDetails);
-        }
+        }*/
 
         // DELETE: /order/1
         [HttpDelete("{id}")]

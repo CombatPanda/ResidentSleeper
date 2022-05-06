@@ -1,9 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ResidentSleeper.Contexts;
+﻿using ResidentSleeper.Contexts;
 using ResidentSleeper.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using static ResidentSleeper.Constants.Constants;
 
 namespace ResidentSleeper.Services.FlowerService
 {
@@ -14,77 +13,58 @@ namespace ResidentSleeper.Services.FlowerService
         public FlowerService(MainContext context)
         {
             _context = context;
-
         }
-        public async Task Add(Flower flower)
+
+        public List<Flower> GetAll()
+        {
+            using (_context)
+            {
+                return _context.Flowers.ToList();
+            }
+        }
+
+        public Flower GetById(int id)
+        {
+            return _context.Flowers.FirstOrDefault(f => f.ID == id);
+        }
+
+        public List<Flower> GetByType(int typeId)
+        {
+            return _context.Flowers.Where(f => f.flowerType == (FlowerType)typeId).ToList();
+        }
+
+        public List<Flower> GetByName(string name)
+        {
+            return _context.Flowers.Where(f => f.name.Contains(name)).ToList();
+        }
+
+        public int Add(Flower flower)
         {
             _context.Flowers.Add(flower);
-            await _context.SaveChangesAsync();
+            return _context.SaveChanges();
         }
 
-        public async Task Delete(int id)
+        public int Delete(Flower flower)
         {
-            var flower = _context.Flowers.FirstOrDefault(f => f.ID == id);
-            if(flower!= null)
-            {
-                _context.Flowers.Remove(flower);
-                await _context.SaveChangesAsync();
-            }
+            _context.Flowers.Remove(flower);
+            return _context.SaveChanges();
         }
 
-        public async Task Edit(int id, Flower flower)
+        public int Edit(Flower oldFlower, Flower newFlower)
         {
-            var oldFlower = _context.Flowers.FirstOrDefault(f => f.ID == id);
-            if(oldFlower != null)
-            {
-                oldFlower.description = flower.description;
-                oldFlower.cost = flower.cost;
-                oldFlower.count = flower.count;
-                oldFlower.flowerType = flower.flowerType;
-                oldFlower.name = flower.name;
-                await _context.SaveChangesAsync();
-            }
+            oldFlower.description = newFlower.description;
+            oldFlower.cost = newFlower.cost;
+            oldFlower.count = newFlower.count;
+            oldFlower.flowerType = newFlower.flowerType;
+            oldFlower.name = newFlower.name;
+
+            return _context.SaveChanges();
         }
 
-        public async Task<List<Flower>> GetAll()
-        {
-            var flowers = new List<Flower>();
-            using (_context)
-            {
-                flowers = await _context.Flowers.ToListAsync();
-            }
-            return flowers;
-        }
-
-        public async Task<List<Flower>> GetByType(int typeId)
-        {
-            var flowers = new List<Flower>();
-            using (_context)
-            {
-                flowers = await _context.Flowers.Where(f => f.flowerType == typeId).ToListAsync();
-            }
-            return flowers;
-        }
-
-        public async Task<Flower> GetById(int id)
-        {
-            return await _context.Flowers.FirstOrDefaultAsync(f => f.ID == id);
-        }
-
-        public async Task<List<Flower>> GetByName(string name)
-        {
-            var flowers = new List<Flower>();
-            using (_context)
-            {
-                flowers = await _context.Flowers.Where(f => f.name == name).ToListAsync();
-            }
-            return flowers;
-        }
-
-        public async Task SellFlower(int id, int amount)
+        public int SellFlower(int id, int amount)
         {
             _context.Flowers.FirstOrDefault(f => f.ID == id).count -= amount;
-            await _context.SaveChangesAsync();
+            return _context.SaveChanges();
         }
     }
 }
