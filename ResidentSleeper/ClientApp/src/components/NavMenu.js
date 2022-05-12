@@ -15,15 +15,14 @@ export class NavMenu extends Component {
     this.toggleNavbar = this.toggleNavbar.bind(this);
     this.getImage = this.getImage.bind(this);
     this.state = {
-        collapsed: true,
-        cartActive: false
+        collapsed: true
     };
   }
 
   toggleNavbar () {
     this.setState({
         collapsed: !this.state.collapsed,
-        cartActive: false
+        cartActive: true
     });
    }
 
@@ -48,10 +47,13 @@ export class NavMenu extends Component {
                   <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
                 </NavItem>
                 <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/shopping-cart"><img src={ShoppingCartIconActive} width="40" height="40"></img></NavLink>
+                    <NavLink tag={Link} className="text-dark" to="/shopping-cart"><img src={this.getImage(this.state.cartActive)} width="40" height="40"></img></NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/counter"><img src={AccountIcon} width="40" height="40"></img></NavLink>
+                  <NavLink tag={Link} className="text-dark" to="/sign-up"><img src={AccountIcon} width="40" height="40"></img></NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink tag={Link} className="text-dark" to="/log-in">Login</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>

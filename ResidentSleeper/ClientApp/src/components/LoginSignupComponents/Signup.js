@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import './passValidation.css';
+import './PassValidation.css';
 
 export default class SignUp extends React.Component {
     constructor() {

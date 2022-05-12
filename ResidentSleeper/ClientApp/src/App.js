@@ -7,6 +7,8 @@ import { Counter } from './components/Counter';
 import { ShoppingCart } from './components/ShoppingCart';
 import { Flowers } from './components/Flowers';
 import { Flowers2 } from './components/Flowers2';
+import  Login  from './components/LoginSignupComponents/Login';
+import  SignUp from './components/LoginSignupComponents/Signup';
 
 import './custom.css'
 
@@ -21,6 +23,8 @@ export default class App extends Component {
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data' component={FetchData} />
         <Route path='/flower-list' component={Flowers} />
+        <Route path='/log-in' component={Login} />
+        <Route path='/sign-up' component={SignUp} />
       </Layout>
     );
   }
