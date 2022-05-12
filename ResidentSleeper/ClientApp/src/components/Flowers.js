@@ -1,5 +1,8 @@
 ﻿import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+import FlowerCard from './FlowerCard';
+import Button from '@mui/material/Button';
+import { Grid } from '@mui/material';
 
 export class Flowers extends Component {
     static displayName = Flowers.name;
@@ -34,38 +37,13 @@ export class Flowers extends Component {
     static renderFlowersTable(flowers) {
 
         return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Flower</th>
-                        <th>Type</th>
-                        <th>Cost</th>
-                        <th>Count</th>
-                        <th>Order</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {flowers.map(flower =>
-                        <tr key={flower.id}>
-                            <td><img src={flower.pictureURL} width="10%" height="10%" /></td>
-                            <td>{flower.name}</td>
-                            <td>{flower.description}</td>
-                            <td>{flower.cost}</td>
-                            <td>{flower.count}</td>
-                            <td>
-                                <button
-                                    className="btn btn-primary"
-                                    onClick={() => { this.addToCart(flower.id) }}
-                                >
-                                    Add to shopping cart
-                                </button>
-                            </td>
-                        </tr>
-                    )}
-                    
-                </tbody>
-            </table>
+            <Grid container spacing={2}>
+                {flowers.map(flower => (
+                    <Grid item xs={4}>
+                        <FlowerCard imUrl={flower.pictureURL} title={flower.name} description={flower.description} />
+                    </Grid>
+                ))}
+            </Grid>
         );
     }
 
