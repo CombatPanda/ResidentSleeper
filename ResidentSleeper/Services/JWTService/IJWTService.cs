@@ -1,10 +1,7 @@
 ﻿using ResidentSleeper.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace ResidentSleeper.Service.JWTService
+namespace ResidentSleeper.Services.JWTService
 {
     public interface IJWTService
     {
