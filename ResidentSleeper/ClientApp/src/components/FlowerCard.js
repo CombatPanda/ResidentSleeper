@@ -1,5 +1,4 @@
 ﻿import React, { Component } from 'react';
-import './FlowerCard.css';
 import { Card, CardActions, CardContent, CardMedia, Typography, Button } from '@mui/material';
 
 export default function FlowerCard(props) {
