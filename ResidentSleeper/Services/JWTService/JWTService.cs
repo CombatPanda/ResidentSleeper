@@ -1,16 +1,15 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ResidentSleeper.Models;
-using ResidentSleeper.Service.UserService;
+using ResidentSleeper.Services.UserService;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ResidentSleeper.Service.JWTService
+namespace ResidentSleeper.Services.JWTService
 {
     public class JWTService : IJWTService
     {
