@@ -48,7 +48,7 @@ export class Flowers extends Component {
                 <tbody>
                     {flowers.map(flower =>
                         <tr key={flower.id}>
-                            <td>{flower.PictureURL}</td>
+                            <td><img src={flower.pictureURL} width="10%" height="10%" /></td>
                             <td>{flower.name}</td>
                             <td>{flower.description}</td>
                             <td>{flower.cost}</td>
