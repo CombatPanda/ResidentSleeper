@@ -33,6 +33,7 @@ namespace ResidentSleeper.Controllers
         }
 
         // GET: api/User
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {
             return Ok(await _userService.GetAllUsers());
