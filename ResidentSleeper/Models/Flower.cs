@@ -10,7 +10,6 @@ namespace ResidentSleeper.Models
         public FlowerType flowerType { get; set; }
         public int count { get; set; }
         public double cost { get; set; }
-
-        public string PictureURL { get; set; } 
+        public string pictureURL { get; set; }
     }
 }

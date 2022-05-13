@@ -1,0 +1,23 @@
+﻿.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-info {
+    flex: 50%;
+    padding: 5px;
+}
+
+.image {
+    width: 500px;
+    height: 500px;
+}
+
+span + span {
+    margin-left: 10px;
+}
+
+.element:not(:last-child) {
+    margin-bottom: 1rem;
+}
