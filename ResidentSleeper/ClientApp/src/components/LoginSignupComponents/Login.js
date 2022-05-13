@@ -15,7 +15,7 @@ export default class Login extends Component {
     }
 
     getUser(newUser) {
-        fetch("https://localhost:5001/api/Login", {
+        fetch("https://localhost:44326/api/Login", {
             method: "POST",
             headers: {
                 Accept: "application/json",
