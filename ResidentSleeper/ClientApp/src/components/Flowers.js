@@ -19,7 +19,7 @@ export class Flowers extends Component {
 
     addToCart(id){
         if (window.confirm('Are you sure?')) {
-            fetch('https://localhost:5001/api/Orders/' + id, {
+            fetch('https://localhost:44326/api/Orders/' + id, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
