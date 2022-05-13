@@ -1,7 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
 import FlowerCard from './FlowerCard';
-import Button from '@mui/material/Button';
 import { Grid } from '@mui/material';
 
 export class Flowers extends Component {
@@ -15,9 +13,8 @@ export class Flowers extends Component {
         };
         this.addToCart = this.addToCart.bind(this);
     }
-    
 
-    addToCart(id){
+    addToCart(id) {
         if (window.confirm('Are you sure?')) {
             fetch('https://localhost:5001/api/Orders/' + id, {
                 method: 'POST',
@@ -35,12 +32,11 @@ export class Flowers extends Component {
     }
 
     static renderFlowersTable(flowers) {
-
         return (
             <Grid container spacing={2}>
                 {flowers.map(flower => (
                     <Grid item xs={4}>
-                        <FlowerCard imUrl={flower.pictureURL} title={flower.name} description={flower.description} />
+                        <FlowerCard imUrl={flower.pictureURL} title={flower.name} description={flower.description} id={flower.id} />
                     </Grid>
                 ))}
             </Grid>
@@ -51,7 +47,7 @@ export class Flowers extends Component {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
             : Flowers.renderFlowersTable(this.state.flowers);
-            
+
         return (
             <div>
                 <h1 id="tabelLabel" >Flower list</h1>
@@ -60,13 +56,10 @@ export class Flowers extends Component {
         );
     }
 
-
-
     async populateFlower() {
         const response = await fetch('api/Flower');
         const data = await response.json();
         console.log(data);
         this.setState({ flowers: data, loading: false });
     }
-
 }

@@ -32,7 +32,7 @@ namespace ResidentSleeper.Controllers
         [HttpGet("id/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            if (id > 1)
+            if (id < 1)
                 return BadRequest();
             var flower = await Task.Run(() => _service.GetById(id));
             if (flower == null)
