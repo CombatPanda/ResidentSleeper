@@ -36,7 +36,7 @@ export class Flowers extends Component {
             <Grid container spacing={2}>
                 {flowers.map(flower => (
                     <Grid item xs={4}>
-                        <FlowerCard imUrl={flower.pictureURL} title={flower.name} description={flower.description} id={flower.id} />
+                        <FlowerCard imUrl={flower.pictureURL} title={flower.name} description={flower.description} id={flower.id} cost={flower.cost} />
                     </Grid>
                 ))}
             </Grid>

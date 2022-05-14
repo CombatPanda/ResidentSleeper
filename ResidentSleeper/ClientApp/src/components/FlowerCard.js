@@ -7,7 +7,7 @@ export default function FlowerCard(props) {
         <Card>
             <CardMedia height="250px" component="img" image={props.imUrl} />
             <CardContent sx={{ height: "150px" }}>
-                <Typography gutterBottom variant="h5" component="div" >{props.title}</Typography>
+                <Typography gutterBottom variant="h5" component="div" >{props.title} {props.cost}€</Typography>
                 <Typography variant="body2" color="text.secondary" >{props.description}</Typography>
             </CardContent>
             <CardActions>
