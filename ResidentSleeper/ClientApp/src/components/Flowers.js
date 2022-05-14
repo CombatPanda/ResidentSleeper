@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import FlowerCard from './FlowerCard';
 import { Grid } from '@mui/material';
+import FlowerCardSkeleton from './FlowerCardSkeleton';
 
 export class Flowers extends Component {
     static displayName = Flowers.name;
@@ -43,9 +44,17 @@ export class Flowers extends Component {
         );
     }
 
+    static renderSkeletonFlowersTable() {
+        return (
+            <Grid container spacing={2}>
+                {[...Array(9)].map((e, i) => <Grid item xs={4}><FlowerCardSkeleton/></Grid>)}
+            </Grid>
+        );
+    }
+
     render() {
         let contents = this.state.loading
-            ? <p><em>Loading...</em></p>
+            ? Flowers.renderSkeletonFlowersTable()
             : Flowers.renderFlowersTable(this.state.flowers);
 
         return (
