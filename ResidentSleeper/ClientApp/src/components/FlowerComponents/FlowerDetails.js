@@ -15,6 +15,22 @@ class FlowerDetails extends Component {
             pictureURL: ''
         }
     }
+    addToCart(newItem) {
+        fetch('https://localhost:44326/api/OrderDetails', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                Category: newItem.flowerId,
+                Spent: newItem.quantity,
+                OrderID: 1,
+            })
+        }).then(response => {
+            this.props.history.push('/OrderDetails')
+        })
+    }
 
     async getFlower() {
         let flowerId = this.props.match.params.id;
