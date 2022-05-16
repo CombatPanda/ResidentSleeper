@@ -29,16 +29,15 @@ namespace ResidentSleeper.Services.UserService
             }
             else
             {
+                newUser.CurrentOrderId = 0;
                 _context.Users.Add(newUser);
+
                 await _context.SaveChangesAsync();
 
-                Order order = new Order();
+                /*Order order = new Order();
                 order.UserID = newUser.ID;
                 _context.Orders.Add(order);
-                await _context.SaveChangesAsync();
-
-                newUser.CurrentOrderId = order.ID;
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();*/
 
                 serviceResponse.Data = await _context.Users.ToListAsync();
                 return serviceResponse;

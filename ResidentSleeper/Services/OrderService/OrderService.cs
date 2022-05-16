@@ -51,6 +51,16 @@ namespace ResidentSleeper.Services.OrderService
             }
         }
 
+        public async Task<int> CreateEmptyOrderReturnId(int userId)
+        {
+            var order = new Order();
+            order.UserID = userId;
+            order.Status = 0;
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+            return order.ID;
+        }
+
         public async Task Delete(int id)
         {
             try
