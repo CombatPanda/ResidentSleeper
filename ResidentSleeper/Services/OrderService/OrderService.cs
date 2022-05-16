@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ResidentSleeper.Contexts;
 using ResidentSleeper.Models;
+using ResidentSleeper.Services.JWTService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,12 @@ namespace ResidentSleeper.Services.OrderService
     public class OrderService : IOrderService
     {
         private readonly MainContext _context;
+        private readonly IJWTService service;
 
-        public OrderService(MainContext context)
+        public OrderService(MainContext context, IJWTService service)
         {
             _context = context;
+            this.service = service;
         }
 
         public async Task AddDetailsByOrderId (int id, OrderDetail newDetail)
@@ -126,6 +129,14 @@ namespace ResidentSleeper.Services.OrderService
                 //error
             }
             return ordersWithDetailsList;
+        }
+        private int UserID()
+        {
+            int userID;
+            bool convertable = Int32.TryParse(service.GetID(), out userID);
+            if (convertable)
+                return userID;
+            else throw new Exception("Invalid user id");
         }
 
         /*public async Task Update(int id, OrderWithDetails orderWithDetails)
