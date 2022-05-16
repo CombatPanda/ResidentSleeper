@@ -46,12 +46,6 @@ namespace ResidentSleeper.Controllers
         [HttpGet("id/{id}")]
         public async Task<OrderWithDetails> GetById(int id)
         {
-            var check = await _userService.GetCurrentUser(Int32.Parse(_jWTService.GetID()));
-            if (check.Success)
-            {
-                Console.WriteLine(check.Data.CurrentOrderId);
-            }
-
             return await _service.GetById(id);
         }
 
@@ -65,6 +59,7 @@ namespace ResidentSleeper.Controllers
                 if (check.Data.CurrentOrderId == 0)
                 {
                     orderId = await _service.CreateEmptyOrderReturnId(check.Data.ID);
+                    check.Data.CurrentOrderId = orderId;
                 }
                 await _service.AddDetailsByOrderId(orderId, orderDetail);
             }
