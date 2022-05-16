@@ -17,6 +17,16 @@ namespace ResidentSleeper.Services.OrderService
             _context = context;
         }
 
+        public async Task AddDetailsByOrderId (int id, OrderDetail newDetail)
+        {
+            var order = _context.Orders.FirstOrDefault(x => x.ID == id);
+            if (order == null) return;
+
+            newDetail.orderID = order.ID;
+            _context.OrderDetails.Add(newDetail);
+            _context.SaveChanges();
+        }
+
         public async Task Create(OrderWithDetails order)
         {
             try
@@ -81,7 +91,11 @@ namespace ResidentSleeper.Services.OrderService
         public async Task<OrderWithDetails> GetById(int id)
         {
             var order = _context.Orders.FirstOrDefault(x => x.ID == id);
-            if (order == null) return new OrderWithDetails();
+            if (order == null) return new OrderWithDetails()
+                {
+                    Details = new List<OrderDetail>(),
+                    Order = new Order()
+                };
 
             var details = await _context.OrderDetails.Where(x => x.orderID == order.ID).ToListAsync();
 

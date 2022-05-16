@@ -48,6 +48,13 @@ namespace ResidentSleeper.Controllers
             await _service.Create(orderWithDetails);
         }
 
+        // POST: api/order/id/1
+        [HttpPut("id/{id}")]
+        public async Task AddOrderDetail(int id, OrderDetail orderDetail)
+        {
+            await _service.AddDetailsByOrderId(id, orderDetail);
+        }
+
         /* // PUT: api/order/1
          [HttpPut("{id}")]
          public async Task Update(int id, OrderWithDetails orderWithDetails)
