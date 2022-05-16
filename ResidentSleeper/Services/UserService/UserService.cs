@@ -37,6 +37,9 @@ namespace ResidentSleeper.Services.UserService
                 _context.Orders.Add(order);
                 await _context.SaveChangesAsync();
 
+                newUser.CurrentOrderId = order.ID;
+                await _context.SaveChangesAsync();
+
                 serviceResponse.Data = await _context.Users.ToListAsync();
                 return serviceResponse;
             }

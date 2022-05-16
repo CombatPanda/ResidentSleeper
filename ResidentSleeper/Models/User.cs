@@ -12,5 +12,6 @@ namespace ResidentSleeper.Models
         public string Password { get; set; }
         public string Email { get; set; }
         public bool isAdmin { get; set; } = false;
+        public int CurrentOrderId { get; set; } = 0;
     }
 }
