@@ -66,5 +66,14 @@ namespace ResidentSleeper.Services.UserService
             serviceResponse.Data = await _context.Users.ToListAsync();
             return serviceResponse;
         }
+
+
+        public async Task<ServiceResponse<User>> GetCurrentUser(int userID)
+        {
+            ServiceResponse<User> serviceResponse = new ServiceResponse<User>();
+            // serviceResponse.Data = await _context.Users.SingleOrDefault(s => s.ID == userID);
+            serviceResponse.Data = await _context.Users.FindAsync(userID);
+            return serviceResponse;
+        }
     }
 }
