@@ -9,5 +9,6 @@ namespace ResidentSleeper.Services.UserService
         Task<ServiceResponse<List<User>>> AddUser(User newUser);
         Task<User> CheckUser(User newUser);
         Task<ServiceResponse<List<User>>> GetAllUsers();
+        Task<ServiceResponse<User>> GetCurrentUser(int userID);
     }
 }

@@ -9,6 +9,11 @@
     padding: 5px;
 }
 
+.content-recommendations {
+    padding: 5px;
+    flex-direction: column-reverse;
+}
+
 .image {
     width: 500px;
     height: 500px;

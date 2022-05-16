@@ -1,8 +1,7 @@
 ﻿import React, { Component } from 'react';
 import FlowerCard from './FlowerCard';
-import { Grid } from '@mui/material';
+import { Grid, IconButton, Button } from '@mui/material';
 import FlowerCardSkeleton from './FlowerCardSkeleton';
-
 export class Flowers extends Component {
     static displayName = Flowers.name;
 
@@ -10,6 +9,8 @@ export class Flowers extends Component {
         super(props);
         this.state = {
             flowers: [],
+            id: '',
+            isAdmin:'',
             loading: true
         };
         this.addToCart = this.addToCart.bind(this);
@@ -30,6 +31,7 @@ export class Flowers extends Component {
 
     componentDidMount() {
         this.populateFlower();
+        this.getUser();
     }
 
     static renderFlowersTable(flowers) {
@@ -60,6 +62,12 @@ export class Flowers extends Component {
         return (
             <div>
                 <h1 id="tabelLabel" >Flower list</h1>
+                <Route render={({ history }) => (
+                    <IconButton aria-label="Add" hidden={this.state.isAdmin === false} onClick={() => { history.push(`/flower-add`) }} >
+                        Add flower
+                    </IconButton>
+                )}/>
+             
                 {contents}
             </div>
         );
@@ -70,5 +78,18 @@ export class Flowers extends Component {
         const data = await response.json();
         console.log(data);
         this.setState({ flowers: data, loading: false });
+    }
+
+    async getUser() {
+        const data = await fetch(`api/User/1`);
+        const response = await data.json();
+        console.log(response.data.id);
+        this.setState({
+            id: response.data.id,
+            isAdmin: response.data.isAdmin,
+           
+        }, () => {
+        });
+        
     }
 }
