@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ResidentSleeper.Contexts;
 using ResidentSleeper.Models;
+using ResidentSleeper.Services.JWTService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,22 @@ namespace ResidentSleeper.Services.OrderService
     public class OrderService : IOrderService
     {
         private readonly MainContext _context;
+        private readonly IJWTService service;
 
-        public OrderService(MainContext context)
+        public OrderService(MainContext context, IJWTService service)
         {
             _context = context;
+            this.service = service;
+        }
+
+        public async Task AddDetailsByOrderId (int id, OrderDetail newDetail)
+        {
+            var order = _context.Orders.FirstOrDefault(x => x.ID == id);
+            if (order == null) return;
+
+            newDetail.orderID = order.ID;
+            _context.OrderDetails.Add(newDetail);
+            _context.SaveChanges();
         }
 
         public async Task Create(OrderWithDetails order)
@@ -36,6 +49,16 @@ namespace ResidentSleeper.Services.OrderService
             {
                 //error
             }
+        }
+
+        public async Task<int> CreateEmptyOrderReturnId(int userId)
+        {
+            var order = new Order();
+            order.UserID = userId;
+            order.Status = 0;
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+            return order.ID;
         }
 
         public async Task Delete(int id)
@@ -81,7 +104,11 @@ namespace ResidentSleeper.Services.OrderService
         public async Task<OrderWithDetails> GetById(int id)
         {
             var order = _context.Orders.FirstOrDefault(x => x.ID == id);
-            if (order == null) return new OrderWithDetails();
+            if (order == null) return new OrderWithDetails()
+                {
+                    Details = new List<OrderDetail>(),
+                    Order = new Order()
+                };
 
             var details = await _context.OrderDetails.Where(x => x.orderID == order.ID).ToListAsync();
 
@@ -112,6 +139,14 @@ namespace ResidentSleeper.Services.OrderService
                 //error
             }
             return ordersWithDetailsList;
+        }
+        private int UserID()
+        {
+            int userID;
+            bool convertable = Int32.TryParse(service.GetID(), out userID);
+            if (convertable)
+                return userID;
+            else throw new Exception("Invalid user id");
         }
 
         /*public async Task Update(int id, OrderWithDetails orderWithDetails)

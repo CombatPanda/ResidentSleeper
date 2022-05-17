@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ResidentSleeper.Contexts;
 using ResidentSleeper.Models;
+using ResidentSleeper.Services.JWTService;
 using ResidentSleeper.Services.OrderService;
+using ResidentSleeper.Services.UserService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ResidentSleeper.Controllers
@@ -14,10 +17,15 @@ namespace ResidentSleeper.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _service;
+        private readonly IUserService _userService;
+        private readonly IJWTService _jWTService;
 
-        public OrderController(IOrderService service)
+
+        public OrderController(IOrderService service, IUserService userService, IJWTService jWTService)
         {
             _service = service;
+            _userService = userService;
+            _jWTService = jWTService;
         }
 
         // GET: api/order
@@ -41,11 +49,34 @@ namespace ResidentSleeper.Controllers
             return await _service.GetById(id);
         }
 
+        [HttpPost("AddNewDetail")]
+        public async Task AddNewDetail(OrderDetail orderDetail)
+        {
+            var check = await _userService.GetCurrentUser(Int32.Parse(_jWTService.GetID()));
+            if (check.Success)
+            {
+                var orderId = check.Data.CurrentOrderId;
+                if (check.Data.CurrentOrderId == 0)
+                {
+                    orderId = await _service.CreateEmptyOrderReturnId(check.Data.ID);
+                    check.Data.CurrentOrderId = orderId;
+                }
+                await _service.AddDetailsByOrderId(orderId, orderDetail);
+            }
+        }
+
         // POST: api/order
         [HttpPost]
         public async Task Create(OrderWithDetails orderWithDetails)
         {
             await _service.Create(orderWithDetails);
+        }
+
+        // POST: api/order/id/1
+        [HttpPut("id/{id}")]
+        public async Task AddOrderDetail(int id, OrderDetail orderDetail)
+        {
+            await _service.AddDetailsByOrderId(id, orderDetail);
         }
 
         /* // PUT: api/order/1

@@ -15,7 +15,7 @@ namespace ResidentSleeper.Services.JWTService
     {
         private IConfiguration _config;
         private readonly IUserService _userService;
-        public static JwtSecurityToken token;
+        public static JwtSecurityToken token = null;
 
         public JWTService(IConfiguration config, IUserService userService)
         {
@@ -67,7 +67,11 @@ namespace ResidentSleeper.Services.JWTService
         }
         public string GetID()
         {
-            return token.Claims.First(claim => claim.Type == "sub").Value;
+            var temp = token.Claims.FirstOrDefault(claim => claim.Type == "sub").Value;
+            if (temp == null)
+                return null;
+            else
+                return token.Claims.FirstOrDefault(claim => claim.Type == "sub").Value;
 
         }
         public string GetUsername()

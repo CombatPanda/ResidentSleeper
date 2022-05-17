@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
-import ShoppingCartIcon from '../icons/shopping-cart.png';
+import ShoppingCartIconas from '../icons/shopping-cart.png';
 import ShoppingCartIconActive from '../icons/shopping-cart-active.png';
 import AccountIcon from '../icons/account.png';
+import { IconButton } from '@mui/material';
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
@@ -28,10 +29,10 @@ export class NavMenu extends Component {
 
     getImage = (cartActive) => {
         if (cartActive == false)
-            return ShoppingCartIcon;
+            return ShoppingCartIconas;
         if (cartActive == true)
             return ShoppingCartIconActive;
-        else return ShoppingCartIcon;
+        else return ShoppingCartIconas;
     }
 
   render () {
@@ -54,9 +55,6 @@ export class NavMenu extends Component {
                 </NavItem>
                 <NavItem>
                     <NavLink tag={Link} className="text-dark" to="/log-in">Login</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
                 </NavItem>
                 <NavItem>
                     <NavLink tag={Link} className="text-dark" to="/flower-list">Flowers</NavLink>

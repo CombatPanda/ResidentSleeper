@@ -29,13 +29,15 @@ namespace ResidentSleeper.Services.UserService
             }
             else
             {
+                newUser.CurrentOrderId = 0;
                 _context.Users.Add(newUser);
+
                 await _context.SaveChangesAsync();
 
-                Order order = new Order();
+                /*Order order = new Order();
                 order.UserID = newUser.ID;
                 _context.Orders.Add(order);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();*/
 
                 serviceResponse.Data = await _context.Users.ToListAsync();
                 return serviceResponse;
@@ -64,6 +66,15 @@ namespace ResidentSleeper.Services.UserService
         {
             ServiceResponse<List<User>> serviceResponse = new ServiceResponse<List<User>>();
             serviceResponse.Data = await _context.Users.ToListAsync();
+            return serviceResponse;
+        }
+
+
+        public async Task<ServiceResponse<User>> GetCurrentUser(int userID)
+        {
+            ServiceResponse<User> serviceResponse = new ServiceResponse<User>();
+            // serviceResponse.Data = await _context.Users.SingleOrDefault(s => s.ID == userID);
+            serviceResponse.Data = await _context.Users.FindAsync(userID);
             return serviceResponse;
         }
     }

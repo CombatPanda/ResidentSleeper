@@ -12,9 +12,11 @@ import SignUp from './components/LoginSignupComponents/Signup';
 import FlowerDetails from './components/FlowerComponents/FlowerDetails'
 
 import './custom.css'
+import { FlowerAdd } from './components/FlowerAdd';
 
 export default class App extends Component {
     static displayName = App.name;
+
 
     render() {
         return (
@@ -27,6 +29,7 @@ export default class App extends Component {
                 <Route path='/log-in' component={Login} />
                 <Route path='/sign-up' component={SignUp} />
                 <Route path='/flower-details/:id' excat component={FlowerDetails} />
+                <Route path='/flower-add' component={FlowerAdd} />
             </Layout>
         );
     }
