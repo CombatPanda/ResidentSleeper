@@ -37,11 +37,10 @@ export class Flowers extends Component {
         this.getUser();
     }
 
-    static renderFlowersTable(flowers) {
+    static renderFlowersTable(flowers, page) {
         return (
             <Grid container spacing={2}>
-                {/*{flowers.slice((this.state.page - 1) * 9, this.state.page * 9).map(flower => (*/}
-                {flowers.slice(0, 9).map(flower => (
+                {flowers.slice((page - 1) * 9, page * 9).map(flower => (
                     <Grid item xs={4}>
                         <FlowerCard imUrl={flower.pictureURL} title={flower.name} description={flower.description} id={flower.id} cost={flower.cost} />
                     </Grid>
@@ -61,7 +60,7 @@ export class Flowers extends Component {
     render() {
         let contents = this.state.loading
             ? Flowers.renderSkeletonFlowersTable()
-            : Flowers.renderFlowersTable(this.state.flowers);
+            : Flowers.renderFlowersTable(this.state.flowers, this.state.page);
 
         return (
             <div>
@@ -84,7 +83,8 @@ export class Flowers extends Component {
         const response = await fetch('api/Flower');
         const data = await response.json();
         console.log(data);
-        this.setState({ flowers: data, loading: false });
+        console.log(this.state.page);
+        this.setState({ flowers: data, loading: false, page: 1});
     }
 
     async getUser() {
