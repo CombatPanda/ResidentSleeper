@@ -1,6 +1,6 @@
-﻿import React, { Component } from 'react';
+﻿import React, { Component, useState } from 'react';
 import FlowerCard from './FlowerCard';
-import { Grid, IconButton, Button } from '@mui/material';
+import { Grid, Pagination, Box, IconButton, Button } from '@mui/material';
 import FlowerCardSkeleton from './FlowerCardSkeleton';
 import { Route } from 'react-router-dom';
 export class Flowers extends Component {
@@ -10,11 +10,13 @@ export class Flowers extends Component {
         super(props);
         this.state = {
             flowers: [],
+            loading: true,
+            page: 1,
             id: '',
-            isAdmin:'',
-            loading: true
+            isAdmin:''
         };
         this.addToCart = this.addToCart.bind(this);
+        
     }
 
     addToCart(id) {
@@ -35,10 +37,10 @@ export class Flowers extends Component {
         this.getUser();
     }
 
-    static renderFlowersTable(flowers) {
+    static renderFlowersTable(flowers, page) {
         return (
             <Grid container spacing={2}>
-                {flowers.map(flower => (
+                {flowers.slice((page - 1) * 9, page * 9).map(flower => (
                     <Grid item xs={4}>
                         <FlowerCard imUrl={flower.pictureURL} title={flower.name} description={flower.description} id={flower.id} cost={flower.cost} />
                     </Grid>
@@ -58,7 +60,7 @@ export class Flowers extends Component {
     render() {
         let contents = this.state.loading
             ? Flowers.renderSkeletonFlowersTable()
-            : Flowers.renderFlowersTable(this.state.flowers);
+            : Flowers.renderFlowersTable(this.state.flowers, this.state.page);
 
         return (
             <div>
@@ -70,6 +72,9 @@ export class Flowers extends Component {
                 )}/>
              
                 {contents}
+                <Box alignItems="center" justifyContent="center" display="flex" mt={2} mb={2}>
+                    <Pagination count={Math.ceil(this.state.flowers.length / 9)} page={this.state.page} defaultPage={1} onChange={(event, value) => this.setState({ page: value })} />
+                </Box>
             </div>
         );
     }
@@ -78,7 +83,8 @@ export class Flowers extends Component {
         const response = await fetch('api/Flower');
         const data = await response.json();
         console.log(data);
-        this.setState({ flowers: data, loading: false });
+        console.log(this.state.page);
+        this.setState({ flowers: data, loading: false, page: 1});
     }
 
     async getUser() {
