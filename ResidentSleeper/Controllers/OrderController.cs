@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ResidentSleeper.Contexts;
 using ResidentSleeper.Models;
+using ResidentSleeper.Services.FlowerService;
 using ResidentSleeper.Services.JWTService;
 using ResidentSleeper.Services.OrderService;
 using ResidentSleeper.Services.UserService;
@@ -17,15 +18,17 @@ namespace ResidentSleeper.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _service;
+        private readonly IFlowerService _flowerService;
         private readonly IUserService _userService;
         private readonly IJWTService _jWTService;
 
 
-        public OrderController(IOrderService service, IUserService userService, IJWTService jWTService)
+        public OrderController(IFlowerService flowerService, IOrderService service, IUserService userService, IJWTService jWTService)
         {
             _service = service;
             _userService = userService;
             _jWTService = jWTService;
+            _flowerService = flowerService;
         }
 
         // GET: api/order
@@ -61,7 +64,8 @@ namespace ResidentSleeper.Controllers
                     orderId = await _service.CreateEmptyOrderReturnId(check.Data.ID);
                     check.Data.CurrentOrderId = orderId;
                 }
-                await _service.AddDetailsByOrderId(orderId, orderDetail);
+                if (_flowerService.GetById(orderDetail.ID) != null)
+                    await _service.AddDetailsByOrderId(orderId, orderDetail);
             }
         }
 
