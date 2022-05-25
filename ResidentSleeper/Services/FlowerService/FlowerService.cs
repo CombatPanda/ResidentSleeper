@@ -30,7 +30,7 @@ namespace ResidentSleeper.Services.FlowerService
 
         public List<Flower> GetByType(int typeId)
         {
-            return _context.Flowers.Where(f => f.flowerType == (FlowerType)typeId).ToList();
+            return _context.Flowers.Where(f => f.flowerType == (int)typeId).ToList();
         }
 
         public List<Flower> GetByName(string name)

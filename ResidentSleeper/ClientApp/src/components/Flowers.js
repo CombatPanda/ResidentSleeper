@@ -9,14 +9,38 @@ export class Flowers extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            fields: {},
             flowers: [],
             loading: true,
             page: 1,
             id: '',
+            deleteId: '',
             isAdmin:''
         };
         this.addToCart = this.addToCart.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.submitDeleteForm = this.submitDeleteForm.bind(this);
         
+    }
+
+    handleChange(e) {
+        let fields = this.state.fields;
+        fields[e.target.name] = e.target.value;
+        this.setState({
+            fields
+        });
+
+    }
+
+    submitDeleteForm(e) {
+        e.preventDefault();
+        this.state.deleteId = this.refs.id.value;
+        this.deleteFlower(this.state.deleteId);
+            let fields = {};
+            fields["id"] = "";
+            this.setState({ fields: fields });
+        
+
     }
 
     addToCart(id) {
@@ -31,6 +55,20 @@ export class Flowers extends Component {
             window.location.reload();
         }
     }
+
+    deleteFlower (id) {
+        if (window.confirm('Are you sure?')) {
+            fetch('https://localhost:44326/api/Flower/' + id, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }
+            })
+            window.location.reload();
+        }
+    }
+
 
     componentDidMount() {
         this.populateFlower();
@@ -64,7 +102,19 @@ export class Flowers extends Component {
 
         return (
             <div>
+
                 <h1 id="tabelLabel" >Flower list</h1>
+
+                <h3>Delete flower</h3>
+
+                <form onSubmit={this.submitDeleteForm} hidden={this.state.isAdmin === false}>
+                    <div className="imput-field">
+                        <label htmlFor="id">ID</label>
+                        <input type="text" name="id" ref="id" value={this.state.fields.id} onChange={this.handleChange} />
+                    </div>
+                    <input type="submit" value="Save" className="btn" />
+                </form>
+
                 <Route render={({ history }) => (
                     <IconButton aria-label="Add" hidden={this.state.isAdmin === false} onClick={() => { history.push(`/flower-add`) }} >
                         Add flower
