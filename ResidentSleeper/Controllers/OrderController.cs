@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ResidentSleeper.Attributes;
 using ResidentSleeper.Contexts;
 using ResidentSleeper.Models;
 using ResidentSleeper.Services.FlowerService;
@@ -32,6 +33,7 @@ namespace ResidentSleeper.Controllers
         }
 
         // GET: api/order
+        [Audit]
         [HttpGet]
         public async Task<List<OrderWithDetails>> GetAll()
         {
@@ -39,6 +41,7 @@ namespace ResidentSleeper.Controllers
         }
 
         // GET: api/order/userid/1
+        [Audit]
         [HttpGet("userid/{userId}")]
         public async Task<List<OrderWithDetails>> GetByUserId(int userId)
         {
@@ -46,12 +49,14 @@ namespace ResidentSleeper.Controllers
         }
 
         // GET: api/order/id/1
+        [Audit]
         [HttpGet("id/{id}")]
         public async Task<OrderWithDetails> GetById(int id)
         {
             return await _service.GetById(id);
         }
 
+        [Audit]
         [HttpPost("AddNewDetail")]
         public async Task AddNewDetail(OrderDetail orderDetail)
         {
@@ -70,6 +75,7 @@ namespace ResidentSleeper.Controllers
         }
 
         // POST: api/order
+        [Audit]
         [HttpPost]
         public async Task Create(OrderWithDetails orderWithDetails)
         {
@@ -77,6 +83,7 @@ namespace ResidentSleeper.Controllers
         }
 
         // POST: api/order/id/1
+        [Audit]
         [HttpPut("id/{id}")]
         public async Task AddOrderDetail(int id, OrderDetail orderDetail)
         {
@@ -91,6 +98,7 @@ namespace ResidentSleeper.Controllers
          }*/
 
         // DELETE: api/order/1
+        [Audit]
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {

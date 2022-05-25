@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ResidentSleeper.Attributes;
 using ResidentSleeper.Contexts;
 using ResidentSleeper.Models;
 using ResidentSleeper.Services.FlowerService;
@@ -19,6 +20,7 @@ namespace ResidentSleeper.Controllers
         }
 
         // GET: api/Flower
+        [Audit]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -29,6 +31,7 @@ namespace ResidentSleeper.Controllers
         }
 
         // GET: api/Flower/id/10
+        [Audit]
         [HttpGet("id/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -41,6 +44,7 @@ namespace ResidentSleeper.Controllers
         }
 
         // GET: api/Flower/type/5
+        [Audit]
         [HttpGet("type/{type}")]
         public async Task<IActionResult> GetByType(int type)
         {
@@ -52,6 +56,7 @@ namespace ResidentSleeper.Controllers
         }
 
         // GET: api/Flower/name/tulpe
+        [Audit]
         [HttpGet("name/{name}")]
         public async Task<IActionResult> GetByName(string name)
         {
@@ -62,6 +67,7 @@ namespace ResidentSleeper.Controllers
         }
 
         // POST: api/Flower
+        [Audit]
         [HttpPost]
         public async Task<IActionResult> Add(Flower flower)
         {
@@ -71,6 +77,7 @@ namespace ResidentSleeper.Controllers
         }
 
         // PUT: api/Flower/10
+        [Audit]
         [HttpPut("{id}")]
         public async Task<IActionResult> Edit(int id, Flower flower)
         {
@@ -88,6 +95,7 @@ namespace ResidentSleeper.Controllers
         }
 
         // DELETE: api/Flower/10
+        [Audit]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using ResidentSleeper.Attributes;
 using ResidentSleeper.Models;
 using ResidentSleeper.Services;
 using ResidentSleeper.Services.JWTService;
@@ -27,6 +28,7 @@ namespace ResidentSleeper.Controllers
             _JWTService = jwtService;
         }
 
+        [Audit]
         [AllowAnonymous]
         [HttpPost]
         public IActionResult Login([FromBody] User login)

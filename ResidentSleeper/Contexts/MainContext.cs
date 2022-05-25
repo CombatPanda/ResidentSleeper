@@ -13,10 +13,15 @@ namespace ResidentSleeper.Contexts
         {
 
         }
+        public MainContext()
+        {
+
+        }
 
         public DbSet<Flower> Flowers { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Audit> AuditRecords { get; set; }
     }
 }
