@@ -20,6 +20,11 @@ namespace ResidentSleeper.Services.OrderService
             this.service = service;
         }
 
+        public void SaveContextChanges()
+        {
+            _context.SaveChanges();
+        }
+
         public async Task AddDetailsByOrderId (int id, OrderDetail newDetail)
         {
             var order = _context.Orders.FirstOrDefault(x => x.ID == id);

@@ -68,8 +68,9 @@ namespace ResidentSleeper.Controllers
                 {
                     orderId = await _service.CreateEmptyOrderReturnId(check.Data.ID);
                     check.Data.CurrentOrderId = orderId;
+                    _service.SaveContextChanges();
                 }
-                if (_flowerService.GetById(orderDetail.ID) != null)
+                if (_flowerService.GetById(orderDetail.flowerID) != null)
                     await _service.AddDetailsByOrderId(orderId, orderDetail);
             }
         }

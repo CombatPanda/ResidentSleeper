@@ -12,6 +12,7 @@ namespace ResidentSleeper.Services.OrderService
         Task Create(OrderWithDetails orderWithDetails);
         Task<int> CreateEmptyOrderReturnId(int userId);
         Task AddDetailsByOrderId(int id, OrderDetail newDetail);
+        public void SaveContextChanges();
         //Task Update(int id, OrderWithDetails orderWithDetails);
         Task Delete(int id);
     }
