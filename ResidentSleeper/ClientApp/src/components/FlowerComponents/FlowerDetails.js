@@ -65,7 +65,10 @@ class FlowerDetails extends Component {
             },
             body: JSON.stringify({
                 flowerId: this.state.flowerId,
-                quantity: 1
+                quantity: 1,
+                pictureURL: this.state.pictureURL,
+                name: this.state.name,
+                cost: this.state.cost
             })
          })
     }

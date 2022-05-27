@@ -3,6 +3,8 @@ import Button from '@mui/material/Button';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import TextField from '@material-ui/core/TextField';
 import './FlowerComponents/FlowerDetails.css';
+import { Table, TableBody, TableHead } from '@mui/material';
+import { TableCell, TableRow } from '@material-ui/core';
 
 export class ShoppingCart extends Component {
 
@@ -20,23 +22,31 @@ export class ShoppingCart extends Component {
     static renderOrders(order) {
         return (
             <div>
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <thead>
-                    <tr>
-                        <th>FlowerID</th>
-                        <th>Quantity</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {order.details.map(o =>
-                        <tr key={o.id}>
-                            <td>{o.flowerID}</td>
-                            <td>{o.quantity}</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-                <span>Status: {order.order.status}</span>
+                <Table aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Product</TableCell>
+                            <TableCell></TableCell>
+                            <TableCell>Cost</TableCell>
+                            <TableCell>Quantity</TableCell>
+                            <TableCell>Total</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                    {order.details.map((row) => (
+                        <TableRow
+                            key={row.id}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                            <TableCell><img src={row.pictureUrl} width="100%" height="100px" style={{ objectFit: 'cover' }} /></TableCell>
+                            <TableCell>{row.name}</TableCell>
+                            <TableCell>{row.cost}</TableCell>
+                            <TableCell>{row.quantity}</TableCell>
+                            <TableCell>{row.quantity * row.cost}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
             </div>
         );
     }
