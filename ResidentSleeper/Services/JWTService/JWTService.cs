@@ -67,6 +67,8 @@ namespace ResidentSleeper.Services.JWTService
         }
         public string GetID()
         {
+            if (token == null) return null;
+
             var temp = token.Claims.FirstOrDefault(claim => claim.Type == "sub").Value;
             if (temp == null)
                 return null;
