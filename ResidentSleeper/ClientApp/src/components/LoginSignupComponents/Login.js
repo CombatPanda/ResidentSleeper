@@ -30,7 +30,7 @@ export default class Login extends Component {
 
             if (response.ok) {
                 document.cookie = response;
-                this.props.history.push("/Home");
+                this.props.history.push("/");
             } else {
                 console.log(response.ok);
                 alert("Failed to login, try signing up");
