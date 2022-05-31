@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core';
 
 export default function FeaturedCard(props) {
   return (
-    <Fade in={props.fadeIn}>
+    <Fade in={props.fadeIn} timeout={1000}>
       <Card>
         <Grid height="500px" style={{ backgroundImage: `url(${props.imUrl})`, backgroundSize: "cover", backgroundPosition: "center" }} container direction="column" alignItems="center" justifyContent="center">
           <Grid item>
