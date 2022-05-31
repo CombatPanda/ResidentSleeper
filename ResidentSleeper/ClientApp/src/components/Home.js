@@ -60,9 +60,8 @@ export class Home extends Component {
     this.setState({ flowers: data, loading: false, index: Math.floor(Math.random() * data.length) });
     setInterval(() => {
       this.setState({ fade: false });
-      setTimeout(() => { this.setState({ index: Math.floor(Math.random() * (data.length - 2)) }) }, 1000);
-      console.log("New index: " + this.state.index);
-      setTimeout(() => { this.setState({ fade: true }) }, 1000);
+      setTimeout(() => { this.setState({ index: Math.floor(Math.random() * (data.length - 2)), loading: true }) }, 1000);
+      setTimeout(() => { this.setState({ fade: true, loading: false }) }, 1000);
     }, 10000);
   }
 }

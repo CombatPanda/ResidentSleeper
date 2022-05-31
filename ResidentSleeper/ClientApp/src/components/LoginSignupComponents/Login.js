@@ -1,18 +1,30 @@
-﻿import React, { Component } from "react";
+﻿import { TextField } from "@mui/material";
+import React, { Component } from "react";
 
 var token = "";
 
 export default class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: ''
+    };
+    this.onSubmit = this.onSubmit.bind(this);
+  }
     onSubmit(e) {
 
         const newUser = {
-            email: this.refs.email.value,
-            password: this.refs.password.value
+            //email: this.refs.email.value,
+          //password: this.refs.password.value
+          email: this.state.email,
+          password: this.state.password
         };
+      console.log("Email: " + newUser.email + " pass: " + newUser.password);
 
         this.getUser(newUser);
         e.preventDefault();
-    }
+  }
 
     getUser(newUser) {
         fetch("https://localhost:44326/api/Login", {
@@ -42,29 +54,32 @@ export default class Login extends Component {
 
     render() {
         return (
-            <form onSubmit={this.onSubmit.bind(this)} >
+            <form onSubmit={this.onSubmit} >
                 <h3>Log In</h3>
 
-                <div className="imput-field">
-                    <label>Email address</label>
-                    <input
-                        type="email"
-                        name="email"
-                        ref="email"
-                        className="form-control"
-                        placeholder="Enter email"
-                    />
-                </div>
+                <TextField
+                  sx={{ mt: 3 }}
+                  value={this.state.email} onChange={(event, value) => this.setState({ email: event.target.value }) }
+                  required
+                  fullWidth
+                  type="email"
+                  name="email"
+                  ref="email"
+                  id="outlined-required"
+                  label="Enter email"
+                />
 
-                <div className="imput-field">
-                    <label htmlFor="password">Password</label>
-                    <input
-                        type="password"
-                        name="password"
-                        ref="password"
-                        placeholder="Enter password"
-                    />
-                </div>
+                <TextField
+                  sx={{ mt: 3, mb: 3 }}
+                  value={this.state.password} onChange={(event, value) => this.setState({ password: event.target.value })}
+                  required
+                  fullWidth
+                  type="password"
+                  name="password"
+                  ref="password"
+                  id="outlined-required"
+                  label="Enter password"
+                />
 
                 <div className="form-group">
                     <div className="custom-control custom-checkbox">
